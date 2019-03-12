@@ -82,7 +82,7 @@ ul {
 input::-webkit-input-placeholder {
     color: #999;
     padding-left: 0px;
-    transition: 0.5s;
+    transition: 0.2s;
 }
 input:focus::-webkit-input-placeholder {
     color: transparent;
