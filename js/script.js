@@ -7,5 +7,9 @@ function editForm() {
     email.contentEditable = 'true';
     dissVal.contentEditable = 'true';
     urlFiel.contentEditable = 'true';
+    
+    email.classList.add("edit");
+    dissVal.classList.add("edit");
+    urlFiel.classList.add("edit");
 
 }

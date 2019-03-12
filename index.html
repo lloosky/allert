@@ -17,27 +17,27 @@
     </head>
     <body>
         <a href="index.html">
-            <div class="logo col-4 mt-2 ml-2"></div>
+            <div class="logo col-xl-4 col-12 mt-2 ml-2"></div>
         </a>
 
-        <main id="allert" class="col-5 ml-auto mr-auto">
+        <main id="allert" class="col-xl-5 col-12 ml-auto mr-auto">
             <!--<form @submit.prevent = "addForm">-->
-            <form>
+            <form @submit.prevent = "addForm">
 
-                <input class="col-12 form-control" v-model="email" type="email" name="email" id="email" placeholder="Adres email">
+                <input class="col-xl-12 col-12 form-control" v-model="email" type="email" name="email" id="email" placeholder="Adres email">
 
-                <select class="col-12 form-control float-left" v-model="disscount" required>
+                <select class="col-xl-12 col-12 form-control float-left" v-model="disscount" required>
                     <option value="" disabled selected>Typ zniżki</option>
                     <option value="Procentowa">Procentowa</option>
                     <option value="Kwotowa">Kwotowa</option>
                 </select>
 
-                <input class="col-12 form-control float-right" v-model="disscountValue" type="number" name="disscountValue" id="disscountValue" min="1" placeholder="Wartość zniżki">
+                <input class="col-xl-12 col-12 form-control float-right" v-model="disscountValue" type="number" name="disscountValue" id="disscountValue" min="1" placeholder="Wartość zniżki">
 
-                <input class="col-12 form-control" v-model="url" type="url" name="url" id="url" placeholder="Adres URL produktu">
+                <input class="col-xl-12 col-12 form-control" v-model="url" type="url" name="url" id="url" placeholder="Adres URL produktu">
 
 
-                <div class="col-12 ml-auto mr-auto pr-0">
+                <div class="col-xl-12 ml-auto mr-auto pr-0">
                     <button type="submit" name="button" 
                             class="confirmButton float-right">Dodaj
                     </button>
@@ -45,17 +45,21 @@
 
             </form>
             <ul class="text-center">
-                <li v-for="field in formInputs" class="col-12">
+                <li v-for="field in formInputs" class="col-xl-12">
+                    <label>Adres email</label>
+                    <div id="eemail" class="col-xl-12 col-12">{{field.email}}</div>
+                    <label>Typ zniżki</label>
+                    <div class="col-xl-12 col-12 mt-1">{{field.disscount}}</div>
+                    <label>Wartość zniżki</label>
+                    <div id="dissValue" class="col-xl-12 col-12 mt-1">{{field.disscountValueField}}</div>
+                    <label>Adres URL produktu</label>
+                    <div id="urlField" class="col-xl-12 col-12 mt-1">{{field.urlField}}</div>
 
-                    <div id="eemail" class="col-12">{{field.email}}</div>
-                    <div class="col-12">{{field.disscount}}</div>
-                    <div id="dissValue" class="col-12">{{field.disscountValueField}} %</div>
-                    <div id="urlField" class="col-12">{{field.urlField}}</div>
-
-                    <i class="col-4 fas fa-trash bg-danger" @click="removeForm(field)"></i>
-                    <i class="col-4 fas fa-pen-square bg-warning" onclick="editForm()"></i>
-                    <i class="col-4 fas fa-check-square bg-success"></i>
-
+                    <div class="col-xl-12 col-12 ml-0 mr-0">
+                        <div class="col-xl-4 col-12 butt float-left" @click="removeForm(field)">Usuń</div>
+                        <div class="col-xl-4 col-12 butt float-left" onclick="editForm()">Edycja</div>
+                        <div class="col-xl-4 col-12 butt float-left mb-2">Zatwierdź</div>
+                    </div>
                 </li>
             </ul>
         </main>
