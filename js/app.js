@@ -34,11 +34,13 @@ const app = new Vue({
             this.disscount = '';
             this.disscountValue = '';
             this.url  = '';
+            document.getElementById("confirmBack").style.display = "block";
         },
 
         removeForm(field) {
             const fieldIndex = this.formInputs.indexOf(field);
             this.formInputs.splice(fieldIndex, 1);
+            document.getElementById("confirmBack").style.display = "none";
         },
     }
 });

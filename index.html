@@ -11,13 +11,13 @@
         <link rel="stylesheet" type="text/css" href="style/style.css">
 
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 
         <title>Allert</title>
     </head>
     <body>
         <a href="index.html">
-            <div class="logo col-xl-4 col-12 mt-2 ml-2"></div>
+            <div class="logo col-xl-4 col-12 mt-4 ml-4"></div>
         </a>
 
         <main id="allert" class="col-xl-5 col-12 ml-auto mr-auto">
@@ -44,7 +44,7 @@
                 </div>
 
             </form>
-            <ul class="text-center">
+            <ul class="text-center" id="confirmBack">
                 <li v-for="field in formInputs" class="col-xl-12">
                     <label>Adres email</label>
                     <div id="eemail" class="col-xl-12 col-12">{{field.email}}</div>
@@ -55,10 +55,17 @@
                     <label>Adres URL produktu</label>
                     <div id="urlField" class="col-xl-12 col-12 mt-1">{{field.urlField}}</div>
 
-                    <div class="col-xl-12 col-12 ml-0 mr-0">
-                        <div class="col-xl-4 col-12 butt float-left" @click="removeForm(field)">Usuń</div>
-                        <div class="col-xl-4 col-12 butt float-left" onclick="editForm()">Edycja</div>
-                        <div class="col-xl-4 col-12 butt float-left mb-2">Zatwierdź</div>
+                    <div class="col-xl-12 col-12">
+
+                        <div class="col-xl-4 float-left">
+                            <div class="col-xl-12 col-12 butt">Zatwierdź</div>
+                        </div>
+                        <div class="col-xl-4 float-left">
+                            <div class="col-xl-12 col-12 butt red-button" @click="removeForm(field)">Usuń</div>
+                        </div>
+                        <div class="col-xl-4 float-left">
+                            <div class="col-xl-12 col-12 butt yellow-button" onclick="editForm()">Edycja</div>
+                        </div>
                     </div>
                 </li>
             </ul>
