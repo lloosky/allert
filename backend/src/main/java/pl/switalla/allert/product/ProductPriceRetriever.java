@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.switalla.allert.exception.PriceAlertException;
+import pl.switalla.allert.exception.AlertException;
 import pl.switalla.allert.shop.Shop;
 import pl.switalla.allert.shop.Shops;
 
@@ -25,7 +25,7 @@ public class ProductPriceRetriever {
     public BigDecimal retrieve(Product product) {
         Map<String, Shop> shops = Shops.all();
         if (!shops.containsKey(product.getShop())) {
-            throw new PriceAlertException(String.format("Shop %s does not exist.", product.getShop()));
+            throw new AlertException(String.format("Shop %s does not exist.", product.getShop()));
         }
 
         Shop shop = shops.get(product.getShop());
@@ -33,7 +33,7 @@ public class ProductPriceRetriever {
             Document document = Jsoup.connect(product.getUrl()).get();
             Elements priceElement = document.select(shop.getSelector());
             if (priceElement.size() > 1) {
-                throw new PriceAlertException("Multiple prices elements.");
+                throw new AlertException("Multiple prices elements.");
             }
 
             log.debug("Price retriever: |{}|", priceElement.text());
@@ -53,7 +53,7 @@ public class ProductPriceRetriever {
             return price.getNumberStripped();
         } catch (IOException e) {
             log.error("Fetching failed.", e);
-            throw new PriceAlertException("Unable to fetch product price.");
+            throw new AlertException("Unable to fetch product price.");
         }
     }
 }

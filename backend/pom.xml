@@ -78,10 +78,31 @@
     </dependencies>
 
     <build>
+        <finalName>allert</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.28.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>%g/allert-backend:0.1</name>
+                            <alias>allert-backend</alias>
+                            <build>
+                                <dockerFileDir>${project.basedir}/docker</dockerFileDir>
+                                <assembly>
+                                    <name>target</name>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
             </plugin>
         </plugins>
     </build>
