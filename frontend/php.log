@@ -9,3 +9,4 @@
  rename {style => frontend/style}/style.css (100%)
  create mode 100644 backend/src/test/java/pl/switalla/allert/shop/ShopsTest.java
 Already up-to-date.
+Already up-to-date.
