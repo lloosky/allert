@@ -26,12 +26,12 @@
 export default {
   data() {
     return {
-      allerts: this.$store.state.allerts,
       displayOfEditFormUpdated: "none",
       email: "",
       productURL: "",
       type: "",
-      value: ""
+      value: "",
+      allerts: this.$store.state.allerts
     };
   },
   props: {

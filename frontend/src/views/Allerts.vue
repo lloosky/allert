@@ -45,6 +45,7 @@
           <div
             class="allert"
             v-for="(allert, index) in filteredAllerts"
+            :class="{'active': activeItemId === index}"
             :key="index"
             @click="showAllertInfo(allert.id, index)"
           >
@@ -80,7 +81,7 @@
           </div>
         </transition-group>
       </div>
-      <div class="right"> <!-- BUG BUG BUG -->
+      <div class="right">
         <h5>Podgląd allertu</h5>
         <div class="last-allert" v-if="allerts.length > 0">
           <img src="./../../public/img/icons/phone.png" width="250px" height="250px" />
@@ -134,7 +135,8 @@ export default {
       showAddingForm: false,
       allertInfo: [],
       previewAllertId: 0,
-      search: ""
+      search: "",
+      activeItemId: ""
     };
   },
   methods: {
@@ -160,11 +162,13 @@ export default {
     showAllertInfo(id, index) {
       const ind = index;
       this.previewAllertId = ind;
+      this.activeItemId = index
     },
     removeAllert(id, index) {
       console.log(`Usuwasz allert id ${id} z ${index} indeksu`);
       this.showConfirmBox = true;
       this.allertInfo.push({ allertid: index });
+      console.log("allertinfo" + this.allertInfo[0].allertid)
     },
     decline() {
       this.allertInfo = [];
@@ -177,6 +181,7 @@ export default {
       console.log(`Usunąłeś allert nr ${index}`);
       this.allertInfo = [];
       this.showConfirmBox = false;
+      this.previewAllertId = 0;
     },
     addForm() {
       this.showAddingForm = true;
@@ -338,6 +343,9 @@ div {
 .allert:hover {
   background-color: #b4b4b46e;
   cursor: pointer;
+}
+.active {
+  background-color: #b4b4b46e;
 }
 .left-header {
   display: grid;
