@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="allertForm" id="allert_form">
-      <form>
+      <form onsubmit="return false;">
         <label for>Podaj adres email</label>
         <input type="email" placeholder="adres email" v-model="email" />
         <label for>Podaj adres produktu</label>
@@ -14,11 +14,11 @@
         </select>
         <label for>Podaj wartość</label>
         <input type="number" placeholder="wartość zniżki" v-model="value" />
-      </form>
-      <div class="formButtons">
+        <div class="formButtons">
         <button class="clearButton" @click="clearInputs">Wyczyść</button>
         <button class="normalButton" @click="addAllert">Dodaj</button>
       </div>
+      </form>
     </div>
   </div>
 </template>
@@ -83,14 +83,14 @@ export default {
   background-color: white;
   box-shadow: 0px 0px 15px 0px #afafaf;
   display: grid;
-  grid-template-columns: 100%;
+  grid-template-columns: 80%;
   align-content: center;
   position: relative;
+  justify-content: center;
 }
 form,
 .formButtons {
   justify-self: center;
-  width: 80%;
 }
 label,
 input,
@@ -129,7 +129,13 @@ button {
 .normalButton:hover {
   background-color: #8eb936;
 }
-@media (max-width: 767px) {
+
+@media (min-width: 992px) and (max-width: 1199px) {
+ .allertForm {
+   height: 70vh;
+ }
+}
+@media (max-width:768px) {
   .allertForm {
     width: 80vw;
   }

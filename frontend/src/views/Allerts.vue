@@ -13,7 +13,7 @@
     </transition>
     <header v-if="showList">
       <h2>Lista allertów</h2>
-      <input type="text" placeholder="szukaj" v-model="search"/>
+      <input type="text" placeholder="szukaj" v-model="search" />
       <div class="add-button" @click="addForm">
         <div class="bar"></div>
       </div>
@@ -23,7 +23,14 @@
     </header>
     <div class="halfs">
       <div class="left">
+        <div class="left-header">
         <h5>Wszystkie allerty</h5>
+        <span>Kod</span>
+        <span>Sklep</span>
+        <span>Produkt</span>
+        <span>Edycja</span>
+        <span>Usuń</span>
+        </div>
         <div
           class="edit-page"
           :style="{height: heightOfEditPage + '%', opacity: opacityOfEditPage}"
@@ -35,45 +42,45 @@
           ></app-edit-page>
         </div>
         <transition-group name="opacityTransition" mode="out-in">
-        <div
-          class="allert"
-          v-for="(allert, index) in filteredAllerts"
-          :key="index"
-          @mouseover="showProductCode(allert.id, index)"
-          @mouseleave="hideProductCode(allert.id)"
-        >
-          <div class="code-of-product" :id="`allert-code-${allert.id}`">
-            <span>Kod allertu </span>
-            <span>ALLE-RT-{{allert.id}}</span>
+          <div
+            class="allert"
+            v-for="(allert, index) in filteredAllerts"
+            :key="index"
+            @click="showAllertInfo(allert.id, index)"
+          >
+            <div>
+              <p>
+                <strong>Adres email:</strong>
+                {{allert.email}}
+              </p>
+              <p>
+                <strong>Nazwa produktu:</strong>
+                {{allert.productURL}}
+              </p>
+              <p>
+                <strong>Allert:</strong>
+                {{allert.type}} {{allert.value}}
+              </p>
+            </div>
+            <div>
+              <p class="code-of-product">
+                {{allert.id}}
+              </p>
+            </div>
+            <div class="allert-logo">
+              <img src="./../../public/img/icons/mediaexpert.png" width="130px" />
+            </div>
+            <div class="allert-img">
+              <img src="./../../public/img/icons/phone.png" width="70px" height="70px" />
+            </div>
+            <div class="edit-button" @click="openEdit(allert.id, index)">&#10000;</div>
+            <div class="close-button small" @click="removeAllert(allert.id, index)">
+              <div class="bar"></div>
+            </div>
           </div>
-          <div>
-            <p>
-              <strong>Adres email:</strong>
-              {{allert.email}}
-            </p>
-            <p>
-              <strong>Nazwa produktu:</strong>
-              {{allert.productURL}}
-            </p>
-            <p>
-              <strong>Allert:</strong>
-              {{allert.type}} {{allert.value}}
-            </p>
-          </div>
-          <div class="allert-logo">
-            <img src="./../../public/img/icons/mediaexpert.png" width="130px" />
-          </div>
-          <div class="allert-img">
-            <img src="./../../public/img/icons/phone.png" width="70px" height="70px" />
-          </div>
-          <div class="edit-button" @click="openEdit(allert.id, index)">&#10000;</div>
-          <div class="close-button small" @click="removeAllert(allert.id, index)">
-            <div class="bar"></div>
-          </div>
-        </div>
         </transition-group>
       </div>
-      <div class="right">
+      <div class="right"> <!-- BUG BUG BUG -->
         <h5>Podgląd allertu</h5>
         <div class="last-allert" v-if="allerts.length > 0">
           <img src="./../../public/img/icons/phone.png" width="250px" height="250px" />
@@ -92,7 +99,7 @@
             </p>
             <p>
               <strong>Kod allertu: </strong>
-              <span>ALLE-RT-{{allerts[this.previewAllertId].id}}</span>
+              <span>{{allerts[this.previewAllertId].id}}</span>
             </p>
             <div class="allert-logo">
               <p>
@@ -121,7 +128,7 @@ export default {
       opacityOfEditPage: 0,
       newId: 0,
       displayOfEditForm: "none",
-      right: -40,
+      right: 0,
       confirmBoxQuestion: "Na pewno chcesz usunąć ten allert ?",
       showConfirmBox: false,
       showAddingForm: false,
@@ -140,7 +147,7 @@ export default {
       allertList.style.left = -100 + "vw";
     },
     openEdit(id, index) {
-      this.heightOfEditPage = 50;
+      this.heightOfEditPage = 70;
       this.displayOfEditForm = "grid";
       this.opacityOfEditPage = 1;
       this.newId = index;
@@ -150,19 +157,14 @@ export default {
       this.heightOfEditPage = 0;
       this.displayOfEditForm = displayOfEditFormUpdated;
     },
-    showProductCode(id, index) {
-      document.getElementById(`allert-code-${id}`).style.left = 0 + "%";
-      const ind = index
-      this.previewAllertId = ind 
-    },
-    hideProductCode(id) {
-      document.getElementById(`allert-code-${id}`).style.left = -40 + "%";
-      this.previewAllertId = 0
+    showAllertInfo(id, index) {
+      const ind = index;
+      this.previewAllertId = ind;
     },
     removeAllert(id, index) {
       console.log(`Usuwasz allert id ${id} z ${index} indeksu`);
       this.showConfirmBox = true;
-      this.allertInfo.push({ allertId: index });
+      this.allertInfo.push({ allertid: index });
     },
     decline() {
       this.allertInfo = [];
@@ -170,7 +172,7 @@ export default {
       console.log("Anulowałeś usuwanie allertu");
     },
     confirm() {
-      const index = this.allertInfo[0].allertId;
+      const index = this.allertInfo[0].allertid;
       this.allerts.splice(index, 1);
       console.log(`Usunąłeś allert nr ${index}`);
       this.allertInfo = [];
@@ -192,7 +194,8 @@ export default {
       } else {
         return this.allerts.filter(function(cust) {
           return (
-            cust.productURL.toLowerCase().indexOf(self.search.toLowerCase()) >= 0
+            cust.productURL.toLowerCase().indexOf(self.search.toLowerCase()) >=
+            0
           );
         });
       }
@@ -207,17 +210,18 @@ export default {
 </script>
 <style>
 .code-of-product {
-  position: absolute;
-  top: 25%;
-  left: -40%;
+  position: relative;
   z-index: 1;
   background-color: #96ca2d;
   color: white;
   font-weight: 600;
-  padding: 10px;
+  padding: 2%;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
   transition: left 0.3s 0.1s;
+  text-align: center;
 }
 .edit-button {
   color: #96ca2d;
@@ -225,10 +229,12 @@ export default {
   font-size: 1.4rem;
   cursor: pointer;
   transition: 0.3s all;
+  justify-self: center;
 }
 .small {
   transform: scale(0.7);
   transition: 0.3s all;
+  justify-self: center;
 }
 .small:hover {
   transform: scale(0.8);
@@ -246,6 +252,7 @@ export default {
   left: 0;
   opacity: 0;
   transition: height 0.3s, opacity 0.3s, display 0.3s;
+  display: grid;
 }
 .bar {
   height: 30px;
@@ -323,9 +330,25 @@ div {
   border-bottom: 1px dashed #afafaf;
   background-color: #dfdfdf6e;
   display: grid;
-  grid-template-columns: 60% 15% 15% 5% 5%;
+  grid-template-columns: 45% 15% 15% 11% 7% 7%;
   align-items: center;
   position: relative;
+  transition: 0.3s all;
+}
+.allert:hover {
+  background-color: #b4b4b46e;
+  cursor: pointer;
+}
+.left-header {
+  display: grid;
+  grid-template-columns: 45% 15% 15% 11% 7% 7%;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.left-header > span {
+  justify-self: center;
+  font-weight: bold;
 }
 .allert > div > p {
   margin-bottom: 0;
@@ -369,5 +392,28 @@ div {
 }
 .last-allert > div {
   justify-self: start;
+}
+@media (max-width:768px) {
+  header > input {
+    display: none;
+  }
+  header {
+    grid-template-columns: 60% 20% 20%;
+  }
+  .right, .allert-logo, .allert-img {
+    display: none
+  }
+  .halfs {
+    grid-template-columns: 100%;
+  }
+  .allert > div > p > strong {
+    display: none;
+  }
+  .left-header > span:nth-of-type(2),span:nth-of-type(3) {
+    display: none;
+  }
+  .left-header, .allert {
+    grid-template-columns: 50% 20% 15% 15%;
+  }
 }
 </style>

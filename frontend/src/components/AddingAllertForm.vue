@@ -1,6 +1,6 @@
 <template>
   <div class="addingAllertForm" id="allert_form">
-    <form>
+    <form onsubmit="return false;">
       <label for>Podaj adres email</label>
       <input type="email" placeholder="adres email" v-model="email" />
       <label for>Podaj adres produktu</label>
@@ -13,12 +13,12 @@
       </select>
       <label for>Podaj wartość</label>
       <input type="number" placeholder="wartość zniżki" v-model="value" />
+      <div class="formButtons buttonPadding">
+        <button class="clearButton" @click="closeForm">Zamknij</button>
+        <button class="clearButton" @click="clearInputs">Wyczyść</button>
+        <button class="normalButton" @click="addAllert">Dodaj</button>
+      </div>
     </form>
-    <div class="formButtons buttonPadding">
-      <button class="clearButton" @click="closeForm">Zamknij</button>
-      <button class="clearButton" @click="clearInputs">Wyczyść</button>
-      <button class="normalButton" @click="addAllert">Dodaj</button>
-    </div>
   </div>
 </template>
 
@@ -67,7 +67,7 @@ export default {
           arr[0] = this.allerts[i].id + 1;
         }
       }
-      return arr[0]
+      return arr[0];
     }
   },
   created() {}

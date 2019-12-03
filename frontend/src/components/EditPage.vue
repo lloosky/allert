@@ -1,6 +1,6 @@
 <template>
   <div class="edit-page-form" :style="{display: displayOfEditForm}">
-    <form>
+    <form onsubmit="return false;">
       <label for>Podaj adres email</label>
       <input type="email" :placeholder="allerts[this.newId].email" v-model="email" />
       <label for>Podaj adres produktu</label>
@@ -13,12 +13,13 @@
       </select>
       <label for>Podaj wartość</label>
       <input type="number" :placeholder="allerts[this.newId].value" v-model="value" />
-    </form>
-    <div class="formButtons buttonsEdit">
+      <div class="formButtons buttonsEdit">
       <button class="clearButton" @click="closeEditPage">Zamknij</button>
       <button class="clearButton" @click="clearInputs">Wyczyść</button>
       <button class="normalButton" @click="confirmEdit">Zapisz</button>
     </div>
+    </form>
+    
   </div>
 </template>
 <script>
@@ -65,19 +66,22 @@ export default {
 </script>
 <style>
 .edit-page-form {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 100%;
-  align-items: center;
-  justify-items: center;
+    display: grid;
+    grid-template-columns: 80%;
+    grid-template-rows: 100%;
+    align-items: center;
+    justify-content: center;
 }
 .edit-page-form > form > select,
 .edit-page-form > form > input {
-  margin-bottom: 0;
+  margin-bottom: 3%;
 }
 .buttonsEdit {
   display: grid;
   justify-items: center;
   grid-template-columns: auto auto auto;
+}
+.buttonsEdit > button {
+  width: 100%;
 }
 </style>

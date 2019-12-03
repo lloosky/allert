@@ -56,4 +56,9 @@ button {
 .decline-button {
   justify-self: left;
 }
+@media (max-width:768px) {
+  .confirm-box {
+    width: 80%;
+  }
+}
 </style>
