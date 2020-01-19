@@ -14,11 +14,11 @@
   </div>
 </template>
 <script>
-import AllertForm from "./../components/AllertForm.vue";
-import Allerts from "../views/Allerts.vue";
+import AllertForm from './../components/AllertForm.vue';
+import Allerts from '../views/Allerts.vue';
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     appAllertForm: AllertForm,
     appAllerts: Allerts

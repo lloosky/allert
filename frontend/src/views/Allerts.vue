@@ -24,12 +24,12 @@
     <div class="halfs">
       <div class="left">
         <div class="left-header">
-        <h5>Wszystkie allerty</h5>
-        <span>Kod</span>
-        <span>Sklep</span>
-        <span>Produkt</span>
-        <span>Edycja</span>
-        <span>Usuń</span>
+          <h5>Wszystkie allerty</h5>
+          <span>Kod</span>
+          <span>Sklep</span>
+          <span>Produkt</span>
+          <span>Edycja</span>
+          <span>Usuń</span>
         </div>
         <div
           class="edit-page"
@@ -64,9 +64,7 @@
               </p>
             </div>
             <div>
-              <p class="code-of-product">
-                {{allert.id}}
-              </p>
+              <p class="code-of-product">{{allert.id}}</p>
             </div>
             <div class="allert-logo">
               <img src="./../../public/img/icons/mediaexpert.png" width="130px" />
@@ -83,12 +81,12 @@
       </div>
       <div class="right">
         <h5>Podgląd allertu</h5>
-        <div class="last-allert" v-if="allerts.length > 0">
+        <div class="last-allert" v-if="this.allerts ? false : true">
           <img src="./../../public/img/icons/phone.png" width="250px" height="250px" />
           <div>
             <p>
               <strong>Adres email:</strong>
-              {{allerts[this.previewAllertId].email}}
+              {{ allerts[this.previewAllertId].email}}
             </p>
             <p>
               <strong>Nazwa produktu:</strong>
@@ -99,7 +97,7 @@
               {{allerts[this.previewAllertId].type}} {{allerts[this.previewAllertId].value}}
             </p>
             <p>
-              <strong>Kod allertu: </strong>
+              <strong>Kod allertu:</strong>
               <span>{{allerts[this.previewAllertId].id}}</span>
             </p>
             <div class="allert-logo">
@@ -115,42 +113,43 @@
   </div>
 </template>
 <script>
-import EditPage from "./../components/EditPage.vue";
-import ConfirmBox from "./../components/ConfirmBox.vue";
-import AddingAllertForm from "./../components/AddingAllertForm.vue";
+import EditPage from './../components/EditPage.vue';
+import ConfirmBox from './../components/ConfirmBox.vue';
+import AddingAllertForm from './../components/AddingAllertForm.vue';
+import store from '../store.js';
 
 export default {
-  name: "Allerts",
+  name: 'Allerts',
+  store: store,
   data() {
     return {
       showList: true,
-      allerts: this.$store.state.allerts,
       heightOfEditPage: 0,
       opacityOfEditPage: 0,
       newId: 0,
-      displayOfEditForm: "none",
+      displayOfEditForm: 'none',
       right: 0,
-      confirmBoxQuestion: "Na pewno chcesz usunąć ten allert ?",
+      confirmBoxQuestion: 'Na pewno chcesz usunąć ten allert ?',
       showConfirmBox: false,
       showAddingForm: false,
       allertInfo: [],
       previewAllertId: 0,
-      search: "",
-      activeItemId: ""
+      search: '',
+      activeItemId: ''
     };
   },
   methods: {
     closeAllertsList() {
-      const rightSide = document.getElementById("rightHomepage");
-      const leftSide = document.getElementById("leftHomepage");
-      const allertList = document.getElementById("allertsList");
-      rightSide.style.top = 0 + "vw";
-      leftSide.style.top = 0 + "vw";
-      allertList.style.left = -100 + "vw";
+      const rightSide = document.getElementById('rightHomepage');
+      const leftSide = document.getElementById('leftHomepage');
+      const allertList = document.getElementById('allertsList');
+      rightSide.style.top = 0 + 'vw';
+      leftSide.style.top = 0 + 'vw';
+      allertList.style.left = -100 + 'vw';
     },
     openEdit(id, index) {
       this.heightOfEditPage = 70;
-      this.displayOfEditForm = "grid";
+      this.displayOfEditForm = 'grid';
       this.opacityOfEditPage = 1;
       this.newId = index;
     },
@@ -162,18 +161,18 @@ export default {
     showAllertInfo(id, index) {
       const ind = index;
       this.previewAllertId = ind;
-      this.activeItemId = index
+      this.activeItemId = index;
     },
     removeAllert(id, index) {
       console.log(`Usuwasz allert id ${id} z ${index} indeksu`);
       this.showConfirmBox = true;
       this.allertInfo.push({ allertid: index });
-      console.log("allertinfo" + this.allertInfo[0].allertid)
+      console.log('allertinfo' + this.allertInfo[0].allertid);
     },
     decline() {
       this.allertInfo = [];
       this.showConfirmBox = false;
-      console.log("Anulowałeś usuwanie allertu");
+      console.log('Anulowałeś usuwanie allertu');
     },
     confirm() {
       const index = this.allertInfo[0].allertid;
@@ -190,12 +189,19 @@ export default {
       this.showAddingForm = showAddingForm;
     }
   },
-  created() {},
   computed: {
+    allerts() {
+      if (this.$store.state.allerts) {
+        return this.$store.state.allerts;
+      } else {
+        return 'błąd';
+      }
+    },
+    // eslint-disable-next-line vue/return-in-computed-property
     filteredAllerts() {
       var self = this;
       if (this.allerts == null || this.allerts == undefined) {
-        console.log("Allerts list is undefined");
+        console.log('Allerts list is undefined');
       } else {
         return this.allerts.filter(function(cust) {
           return (
@@ -401,15 +407,17 @@ div {
 .last-allert > div {
   justify-self: start;
 }
-@media (max-width:768px) {
+@media (max-width: 768px) {
   header > input {
     display: none;
   }
   header {
     grid-template-columns: 60% 20% 20%;
   }
-  .right, .allert-logo, .allert-img {
-    display: none
+  .right,
+  .allert-logo,
+  .allert-img {
+    display: none;
   }
   .halfs {
     grid-template-columns: 100%;
@@ -417,10 +425,12 @@ div {
   .allert > div > p > strong {
     display: none;
   }
-  .left-header > span:nth-of-type(2),span:nth-of-type(3) {
+  .left-header > span:nth-of-type(2),
+  span:nth-of-type(3) {
     display: none;
   }
-  .left-header, .allert {
+  .left-header,
+  .allert {
     grid-template-columns: 50% 20% 15% 15%;
   }
 }

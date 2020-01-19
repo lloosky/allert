@@ -5,13 +5,13 @@
         <div></div>
         <div></div>
       </div>
-      <router-link to="/">
+      <router-link to="/" name="home">
         <img src="./../../public/img/icons/001-home.png" @click="closeNavigationDraw" />
       </router-link>
-      <router-link to="manual">
+      <router-link to="manual" name="manual">
         <img src="./../../public/img/icons/002-information.png" @click="closeNavigationDraw" />
       </router-link>
-      <router-link to="contact">
+      <router-link to="contact" name="contact">
         <img src="./../../public/img/icons/003-envelope.png" @click="closeNavigationDraw" />
       </router-link>
     </div>

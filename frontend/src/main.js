@@ -5,11 +5,13 @@ import VueResource from 'vue-resource';
 import App from './App.vue';
 import axios from 'axios';
 import router from './routes/router';
+import VueRouter from 'vue-router';
 import store from './store';
 import './registerServiceWorker';
 
 Vue.component('Spinner', Spinner);
 Vue.use(VueResource);
+Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
 
